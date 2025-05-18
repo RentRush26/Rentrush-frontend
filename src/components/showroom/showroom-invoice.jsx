@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FiDownload, FiEye, FiSearch, FiFilter } from "react-icons/fi";
 import ShowroomNavbar from "./showroomNavbar";
 import Footer from "../Footer";
@@ -125,29 +125,29 @@ const ShowroomInvoiceDashboard = () => {
       <ShowroomNavbar />
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-4 sm:p-6">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-8 text-center sm:text-left">
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">
+          <div className="mb-6 md:mb-8 text-center sm:text-left">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-1 sm:mb-2">
               Invoice Dashboard
             </h1>
-            <p className="text-gray-600">
+            <p className="text-sm sm:text-base text-gray-600">
               Manage and view all your invoices in one place
             </p>
             {useDummyData && (
-              <div className="mt-2 bg-yellow-100 text-yellow-800 p-2 rounded-md inline-block">
+              <div className="mt-2 bg-yellow-100 text-yellow-800 text-xs sm:text-sm p-2 rounded-md inline-block">
                 Using dummy data for demonstration
               </div>
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-between gap-4 mb-8">
-            <div className="relative w-full sm:w-96">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="relative w-full sm:w-80 md:w-96">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 <FiSearch className="text-gray-400" />
               </div>
               <input
                 type="text"
-                className="block w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
-                placeholder="Search by ID, car, client, date or status..."
+                className="block w-full pl-10 pr-4 py-2 sm:py-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
+                placeholder="Search invoices..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -157,7 +157,7 @@ const ShowroomInvoiceDashboard = () => {
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
                   <svg
-                    className="h-5 w-5 text-gray-400"
+                    className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -174,11 +174,11 @@ const ShowroomInvoiceDashboard = () => {
             </div>
 
             <div className="flex items-center gap-2">
-              <FiFilter className="text-gray-500" />
+              <FiFilter className="text-gray-500 hidden sm:block" />
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                className="block w-full sm:w-40 pl-3 pr-10 py-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base"
+                className="block w-full sm:w-40 pl-3 pr-10 py-2 sm:py-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm sm:text-base"
               >
                 <option value="all">All Statuses</option>
                 <option value="paid">Paid</option>
@@ -190,18 +190,20 @@ const ShowroomInvoiceDashboard = () => {
           {loading ? (
             <div className="flex justify-center items-center h-64">
               <div className="animate-pulse flex flex-col items-center">
-                <div className="h-12 w-12 bg-blue-400 rounded-full mb-4"></div>
-                <span className="text-lg text-gray-600">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 bg-blue-400 rounded-full mb-3 sm:mb-4"></div>
+                <span className="text-sm sm:text-lg text-gray-600">
                   Loading invoices...
                 </span>
               </div>
             </div>
           ) : error && !useDummyData ? (
-            <div className="bg-red-50 rounded-xl p-6 text-center">
-              <p className="text-red-600 font-medium mb-4">{error}</p>
+            <div className="bg-red-50 rounded-xl p-4 sm:p-6 text-center">
+              <p className="text-sm sm:text-base text-red-600 font-medium mb-3 sm:mb-4">
+                {error}
+              </p>
               <button
                 onClick={fetchInvoices}
-                className="px-4 py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors"
+                className="px-3 sm:px-4 py-1 sm:py-2 bg-red-100 text-red-700 rounded-md hover:bg-red-200 transition-colors text-sm sm:text-base"
               >
                 Retry
               </button>
@@ -218,13 +220,13 @@ const ShowroomInvoiceDashboard = () => {
                         "Invoice ID",
                         "Client",
                         "Car Name",
-                        "Rental Amount (PKR)",
+                        "Amount (PKR)",
                         "Actions",
                       ].map((header) => (
                         <th
                           key={header}
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
+                          className="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
                         >
                           {header}
                         </th>
@@ -238,39 +240,39 @@ const ShowroomInvoiceDashboard = () => {
                           key={invoice.bookingId}
                           className="hover:bg-gray-50 transition-colors"
                         >
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="text-sm font-medium text-gray-900">
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                            <div className="text-xs sm:text-sm font-medium text-gray-900">
                               {formatDate(invoice.createdAt)}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                             <span
-                              className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                              className={`px-2 py-1 inline-flex text-xs leading-4 sm:leading-5 font-semibold rounded-full 
                                 ${invoice?.isCompleted ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"}`}
                             >
                               {invoice?.isCompleted ? "Paid" : "Unpaid"}
                             </span>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                             {invoice.bookingId}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {invoice.user?.ownerName}
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm text-gray-500">
+                            {invoice.user?.ownerName || "-"}
                           </td>
-                          <td className="px-6 py-4 text-sm text-gray-500">
+                          <td className="px-3 sm:px-6 py-4 text-xs sm:text-sm text-gray-500">
                             {invoice.carName}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-medium text-gray-900">
                             PKR {invoice.balance?.toLocaleString() || "0"}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <div className="flex justify-end space-x-3">
+                          <td className="px-3 sm:px-6 py-4 whitespace-nowrap text-right text-xs sm:text-sm font-medium">
+                            <div className="flex justify-end space-x-2 sm:space-x-3">
                               <button
                                 onClick={() => openPDF(invoice.invoiceUrl)}
                                 className="text-blue-600 hover:text-blue-800 transition-colors p-1 rounded hover:bg-blue-50"
                                 title="View Invoice"
                               >
-                                <FiEye className="h-5 w-5" />
+                                <FiEye className="h-4 w-4 sm:h-5 sm:w-5" />
                               </button>
                               <button
                                 onClick={() =>
@@ -279,7 +281,7 @@ const ShowroomInvoiceDashboard = () => {
                                 className="text-gray-600 hover:text-gray-800 transition-colors p-1 rounded hover:bg-gray-50"
                                 title="Download Invoice"
                               >
-                                <FiDownload className="h-5 w-5" />
+                                <FiDownload className="h-4 w-4 sm:h-5 sm:w-5" />
                               </button>
                             </div>
                           </td>
@@ -287,8 +289,8 @@ const ShowroomInvoiceDashboard = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="7" className="px-6 py-12 text-center">
-                          <div className="text-gray-500">
+                        <td colSpan="7" className="px-6 py-8 sm:py-12 text-center">
+                          <div className="text-sm sm:text-base text-gray-500">
                             {invoices.length === 0
                               ? "No invoices found"
                               : `No invoices matching your search criteria`}
@@ -298,7 +300,7 @@ const ShowroomInvoiceDashboard = () => {
                               setSearchTerm("");
                               setStatusFilter("all");
                             }}
-                            className="mt-4 px-4 py-2 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition-colors"
+                            className="mt-3 sm:mt-4 px-3 sm:px-4 py-1 sm:py-2 bg-blue-50 text-blue-600 rounded-md hover:bg-blue-100 transition-colors text-sm sm:text-base"
                           >
                             Reset Filters
                           </button>
